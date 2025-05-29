@@ -1,0 +1,103 @@
+.vertical-menu {
+    background-color: white !important;
+    background: orange;
+}
+
+.mm-active .active {
+    color:orange!important;
+}
+
+#sidebar-menu ul li a {
+    color: black !important;
+}
+.mm-active .active i {
+    color: orange !important; /* Set icon color explicitly */
+}
+.mm-active .active svg {
+    fill: orange !important; 
+}
+    
+/* Highlight selected menu item */
+.side-nav-link-ref.active {
+background-color: rgba(240, 176, 59, 0.1) !important; /* Light green background */
+color: orange !important;
+}
+
+/* Ensure icon remains visible when active */
+.side-nav-link-ref.active i {
+color: orange !important;
+}
+
+/* Prevent icon from disappearing */
+.side-nav-link-ref.active i.bx {
+opacity: 1 !important;
+}
+
+/* Styling for parent menu items with active children */
+.mm-active > a {
+color: orange !important;
+}
+
+/* Ensure icons are not hidden */
+//   .mm-active a i {
+//     color: orange !important;
+//   }
+/* Global rule to ensure all icons are always visible */
+#sidebar-menu ul li a i,
+#sidebar-menu .bx,
+#sidebar-menu i.bx,
+.metismenu i,
+.metismenu .bx {
+opacity: 1 !important;
+visibility: visible !important;
+display: inline-block !important;
+}
+
+/* Force icon visibility in all states */
+#sidebar-menu ul li a:hover i,
+#sidebar-menu ul li.mm-active i,
+#sidebar-menu ul li.mm-show i,
+#sidebar-menu ul li a.active i,
+#sidebar-menu ul li a.is-parent i,
+#sidebar-menu ul li a.has-arrow i,
+#sidebar-menu ul li a.has-dropdown i,
+.side-nav-link-ref i,
+.side-nav-link-a-ref i {
+opacity: 1 !important;
+visibility: visible !important;
+display: inline-block !important;
+}
+
+/* Override any potential MetisMenu styles that might hide icons */
+.metismenu .mm-active > a i,
+.metismenu .mm-show > a i,
+.metismenu .mm-collapse i,
+.metismenu .mm-collapsing i {
+opacity: 1 !important;
+visibility: visible !important;
+display: inline-block !important;
+}
+
+/* Prevent any animation or transition effects on icons */
+#sidebar-menu i,
+.metismenu i,
+.side-nav-link-ref i,
+.side-nav-link-a-ref i {
+transition: none !important;
+animation: none !important;
+}
+
+/* Ensure icon color is maintained consistently */
+#sidebar-menu ul li.mm-active > a i {
+color: orange !important;
+}
+
+/* Handle default state */
+#sidebar-menu ul li a i {
+color: black !important;
+}
+
+/* Handle hover state */
+#sidebar-menu ul li a:hover i {
+color: orange !important;
+}

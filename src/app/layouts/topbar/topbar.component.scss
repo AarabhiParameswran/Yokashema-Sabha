@@ -1,0 +1,149 @@
+/* Main styling for navbar/header */
+.navbar-brand-box {
+    background: orange !important; /* Added !important to override any existing styles */
+    height: 100%; /* Ensure the logo box extends full height */
+    padding: 0;
+    margin: 0;
+}
+
+/* Target all logo images specifically */
+.navbar-brand-box img,
+.logo-sm img,
+.logo-lg img,
+.logo img {
+    height: 60px;
+}
+
+/* Ensure both light and dark logos use the same styles */
+.logo.logo-dark,
+.logo.logo-light {
+    background: black;
+}
+
+/* Logo container spans */
+.logo-sm,
+.logo-lg {
+    background: black;
+}
+
+#page-topbar, 
+.navbar-header {
+    background-color: orange; /* Bootstrap green */
+    color: black;
+    width: 100%; /* Ensure full width */
+    position: fixed;
+}
+
+/* Full width considerations */
+.navbar-header {
+    margin: 0;
+    padding: 0;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Ensure the d-flex containers don't constrain width */
+.navbar-header .d-flex {
+    width: auto;
+    background-color: orange;
+}
+
+/* Buttons and icons */
+.btn,
+.header-item,
+.noti-icon,
+.fa,
+.bx,
+.mdi {
+    color: white;
+}
+
+.dropdown-menu .bx,
+.dropdown-menu .mdi,
+.dropdown-menu .fa {
+    color: black;
+}
+
+/* Hover states */
+.btn:hover,
+.header-item:hover {
+    background-color: rgb(230, 161, 32); /* Darker green */
+}
+
+/* Search box */
+.app-search .form-control {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.app-search .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Dropdown menus */
+.dropdown-menu {
+    border-color: orange;
+    border-top: 2px solid orange;
+}
+
+/* Badge colors */
+.badge.bg-danger {
+    background-color: orange !important; /* Overriding danger with green */
+}
+
+/* Vertical menu (sidebar) */
+.vertical-menu {
+    background-color: orange;
+}
+
+/* Menu items */
+.vertical-menu .metismenu li {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.vertical-menu .metismenu li:hover,
+.vertical-menu .metismenu li:active,
+.vertical-menu .metismenu li.active {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Submenu */
+.vertical-menu .metismenu .sub-menu {
+    background-color: orange;
+}
+
+/* User avatar background */
+.bg-primary {
+    background-color: #000000 !important;
+}
+
+/* Text colors */
+.text-muted {
+    color: #e9ffef !important;
+}
+
+/* Ensure notifications and dropdown components also have green backgrounds */
+.dropdown-menu-lg.dropdown-menu-end.p-0 > div {
+    background-color: orange;
+}
+
+/* Ensure no white gaps appear */
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* Make header elements stand out */
+.navbar-header h6, 
+.navbar-header .h6 {
+    color: white;
+    font-weight: 500;
+}
+
+/* Make the header fixed at the top if needed */
+#page-topbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}

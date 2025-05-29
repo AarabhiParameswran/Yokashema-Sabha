@@ -1,0 +1,60 @@
+<div class="dashboard-container">
+  <!-- Header Section -->
+  <header class="dashboard-header">
+    <div class="logo-container">
+      <img class="om-symbol" src="assets/images/shankaracharya.jpg" alt="Om Symbol">
+    </div>
+    <div class="title-container">
+      <h1 class="main-title align-middle">Yogakshema Sabha</h1>
+      <h3 class="sanskrit-title">ലോകാഃ സമസ്താഃ സുഖിനോ ഭവന്തു</h3>
+      <p class="subtitle">"May all beings in all worlds be happy"</p>
+    </div>
+  </header>
+
+  <!-- Announcements Ticker -->
+  <div class="announcement-ticker">
+    <div class="ticker-title">Announcements</div>
+    <div class="ticker-content">
+      <div class="ticker-text">
+        {{ announcements.join(' | ') }}
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content Area -->
+  <div class="dashboard-content">
+    <div class="main-area">
+      <!-- Quote Section -->
+      <div class="quote-box">
+        <p class="quote">"ഞാൻ നാമവും രൂപവും പ്രവർത്തനവും അല്ലാതെ മറ്റൊന്നാണ്. എന്റെ സ്വഭാവം എപ്പോഴും സ്വതന്ത്രമാണ്!"</p>
+        <p class="quote">"ഞാൻ തന്നെയാണ്, പരമമായ നിരുപാധിക ബ്രഹ്മം. ഞാൻ ശുദ്ധമായ അവബോധമാണ്, എല്ലായ്‌പ്പോഴും ഇരട്ടയല്ല."</p>
+        <p class="quote-author">(ആദിശങ്കരൻ, ഉപദേശസഹസ്രി 11.7)</p>
+      </div>
+
+      <!-- About Section -->
+      <div class="content-card">
+        <h2>About Yogakshema Sabha</h2>
+        <p>
+          കേരള വംശജരായ നമ്പൂതിരി ബ്രാഹ്മണരുടെ സംഘടനയാണ് യോഗക്ഷേമസഭ. 1908-ൽ ആദ്യമായി സ്ഥാപിതമായ, ദീർഘവീക്ഷണമുള്ള മഹത്തായ സദ്‌ഗുണമുള്ള മനുഷ്യർ, കേരള സമൂഹത്തിന്റെ സാമൂഹിക നവീകരണത്തിന് ഒരു സജീവ ഉത്തേജകമായി പ്രവർത്തിച്ചു.കേരളത്തിലെ ബ്രാഹ്മണരുടെ ഐക്യത്തിനും ഉന്നമനത്തിനും വേണ്ടി 1908 മാര്‍ച്ച് മാസം 02 - ന് (1083 കുംഭം 18) ശിവരാത്രി നാളില്‍ ആലുവയില്‍ ചെറുമുക്ക്‌മനയില്‍ വച്ച് ആദ്യ നമ്പൂതിരി യോഗക്ഷേമസഭ രൂപീകരിച്ചു.
+        </p>
+        <p>
+          ദീര്‍ഘദര്‍ശ്ശികളായ ഒട്ടനവധി സമുദായ അംഗങ്ങളുടെ വിപ്ലവാത്മകമായ പ്രവര്‍ത്തനങ്ങള്‍ സാമുദായിക സാംസ്കാരിക മേഖലകളില്‍ കാതലായ മാറ്റത്തിന് വഴികാട്ടിയായിയുണ്ട്.ഒരു നിശ്ചിത പ്രദേശ പരിധിക്കപ്പുറം. തുടർന്നുള്ള സാമൂഹിക സാമ്പത്തിക തകർച്ചയുടെ ഫലമായി, ഒരു ജനാധിപത്യ സമൂഹത്തിൽ പ്രശ്നങ്ങൾ പരിഹരിക്കുന്നതിനും താൽപ്പര്യങ്ങൾ സംരക്ഷിക്കുന്നതിനും ഒരു സംഘടനയുടെ ആവശ്യകത സമൂഹത്തിന് വീണ്ടും തോന്നി.
+        </p>
+        <!-- <button class="read-more" (click)="onReadMore()">Read More</button> -->
+      </div>
+
+      <!-- Quick Links Section -->
+      <!-- <div class="sidebar-card">
+        <div class="sidebar-header">Quick Links</div>
+        <div class="sidebar-content">
+          <ul class="sidebar-links">
+            <li *ngFor="let link of quickLinks">
+              <a [routerLink]="link.route">{{ link.label }}</a>
+            </li>
+          </ul>
+        </div>
+      </div> -->
+
+    </div>
+  </div>
+</div>

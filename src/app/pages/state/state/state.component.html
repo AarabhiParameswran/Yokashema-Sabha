@@ -1,0 +1,83 @@
+<div class="dashboard-container">
+  <!-- Ultra Compact Filter Section -->
+   <p>The Yogakshema Sabha has a rich history that dates back to 1908. It was formed on the Mahaasivaraathri day of ME 1083, when a large number of Namboothiris gathered at Cherumukku Vaidikan's Illam, located on the bank of the Periyar river. The meeting was presided over by Desamangalam Valiya Sankaran Nambudiripad, marking the birth of the "Namboothiri Yogakshema Mahaasabha" (Namboothiri Community Welfare Organisation) ¹.
+
+The Sabha's primary objectives were to eradicate illiteracy and promote modern education within the Namboothiri community. To achieve this, they started a monthly publication called "Yogakshemam" to create awareness among community members. The magazine emphasized the importance of English education and its benefits.</p>
+  <div class="filter-section">
+    <div class="filter-row">
+      <!-- District Selection -->
+      <div class="filter-item">
+        <label for="district-filter">Select District</label>
+        <ng-select 
+          id="district-filter" 
+          [items]="districts" 
+          bindLabel="district_name" 
+          bindValue="district_code" 
+          placeholder="Select District" 
+          [(ngModel)]="selectedDistrictCode" 
+          (change)="onDistrictChange()"
+          [clearable]="true">
+        </ng-select>
+      </div>
+      
+      <!-- Upasabha Selection -->
+      <div class="filter-item" *ngIf="upasabhas.length > 0">
+        <label for="upasabha-filter">Select Upasabha</label>
+        <ng-select 
+          id="upasabha-filter" 
+          [items]="upasabhas" 
+          bindLabel="upasabha_name" 
+          bindValue="upasabha_code" 
+          placeholder="Select Upasabha" 
+          [(ngModel)]="selectedUpasabhaCode" 
+          (change)="onUpasabhaChange()"
+          [clearable]="true">
+        </ng-select>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Upasabha Files Display Section -->
+  <div class="content-section" *ngIf="upasabhaFiles.length > 0">
+    <div class="files-header">
+      <h3>Upasabha Files</h3>
+    </div>
+    
+    <div class="files-grid">
+      <div class="file-card" *ngFor="let file of upasabhaFiles">
+        <div class="file-info">
+          <h4>{{ file.file_url || file.name || 'Unnamed File' }}</h4>
+          <p *ngIf="file.description">{{ file.description }}</p>
+          <div class="file-meta">
+            <span *ngIf="file.file_type" class="file-type">{{ file.file_type }}</span>
+            <span *ngIf="file.file_size" class="file-size">{{ file.file_size }}</span>
+            <span *ngIf="file.created_date" class="file-date">{{ file.created_date | date:'short' }}</span>
+          </div>
+        </div>
+        <div class="file-actions">
+          <button 
+            *ngIf="file.download_url || file.file_url" 
+            class="btn btn-primary btn-sm"
+            (click)="downloadFile(file)">
+            Download
+          </button>
+          <button 
+            *ngIf="file.view_url" 
+            class="btn btn-secondary btn-sm"
+            (click)="viewFile(file)">
+            View
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- No Data Messages -->
+  <div class="no-data-message" *ngIf="selectedDistrictCode && upasabhas.length === 0">
+    <p>No upasabhas found for the selected district.</p>
+  </div>
+  
+  <div class="no-data-message" *ngIf="selectedUpasabhaCode && upasabhaFiles.length === 0">
+    <p>No files found for the selected upasabha.</p>
+  </div>
+</div>

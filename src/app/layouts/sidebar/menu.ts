@@ -10,7 +10,7 @@ export const MENU: MenuItem[] = [
     id: 2,
     label: "Dashboard",
     icon: "bxs-dashboard",
-    link: "/",
+    link: "",
     subItems: [
     //   {
     //     id: 21,

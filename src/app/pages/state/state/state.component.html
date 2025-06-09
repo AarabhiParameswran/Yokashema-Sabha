@@ -1,70 +1,84 @@
 <div class="dashboard-container">
-  <!-- Ultra Compact Filter Section -->
-   <p>The Yogakshema Sabha has a rich history that dates back to 1908. It was formed on the Mahaasivaraathri day of ME 1083, when a large number of Namboothiris gathered at Cherumukku Vaidikan's Illam, located on the bank of the Periyar river. The meeting was presided over by Desamangalam Valiya Sankaran Nambudiripad, marking the birth of the "Namboothiri Yogakshema Mahaasabha" (Namboothiri Community Welfare Organisation) ¹.
+  <!-- Header with History -->
+  <div class="dashboard-header">
+    <div class="history-summary">
+      <h2>Yogakshema Sabha</h2>
+      <p>The Yogakshema Sabha has a rich history that dates back to 1908. It was formed on the Mahaasivaraathri day of ME 1083, when a large number of Namboothiris gathered at Cherumukku Vaidikan's Illam, located on the bank of the Periyar river. The meeting was presided over by Desamangalam Valiya Sankaran Nambudiripad, marking the birth of the "Namboothiri Yogakshema Mahaasabha" (Namboothiri Community Welfare Organisation) 1.The Sabha's primary objectives were to eradicate illiteracy and promote modern education within the Namboothiri community. To achieve this, they started a monthly publication called "Yogakshemam" to create awareness among community members. The magazine emphasized the importance of English education and its benefits.</p>
+    </div>
+  </div>
 
-The Sabha's primary objectives were to eradicate illiteracy and promote modern education within the Namboothiri community. To achieve this, they started a monthly publication called "Yogakshemam" to create awareness among community members. The magazine emphasized the importance of English education and its benefits.</p>
-  <div class="filter-section">
-    <div class="filter-row">
-      <!-- District Selection -->
-      <div class="filter-item">
-        <label for="district-filter">Select District</label>
-        <ng-select 
-          id="district-filter" 
-          [items]="districts" 
-          bindLabel="district_name" 
-          bindValue="district_code" 
-          placeholder="Select District" 
-          [(ngModel)]="selectedDistrictCode" 
-          (change)="onDistrictChange()"
-          [clearable]="true">
-        </ng-select>
+  <!-- Compact Filter Bar -->
+  <div class="filter-bar">
+    <div class="filter-group">
+      <select id="district-filter" [(ngModel)]="selectedDistrictCode" (change)="onDistrictChange()" class="form-select">
+        <option value="">Select District</option>
+        <option *ngFor="let district of districts" [value]="district.district_code">
+          {{ district.district_name }}
+        </option>
+      </select>
+    </div>
+    
+    <div class="filter-group" *ngIf="upasabhas.length > 0">
+      <select id="upasabha-filter" [(ngModel)]="selectedUpasabhaCode" (change)="onUpasabhaChange()" class="form-select">
+        <option value="">Select Upasabha</option>
+        <option *ngFor="let upasabha of upasabhas" [value]="upasabha.upasabha_code">
+          {{ upasabha.upasabha_name }}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <!-- News Grid -->
+  <div class="content-grid">
+    <!-- State News -->
+    <div class="news-section" *ngIf="stateNews.length > 0">
+      <h3 class="section-title">State News</h3>
+      <div class="news-list">
+        <div class="news-item" *ngFor="let news of stateNews">
+          <h4>{{ news.news }}</h4>
+        </div>
       </div>
-      
-      <!-- Upasabha Selection -->
-      <div class="filter-item" *ngIf="upasabhas.length > 0">
-        <label for="upasabha-filter">Select Upasabha</label>
-        <ng-select 
-          id="upasabha-filter" 
-          [items]="upasabhas" 
-          bindLabel="upasabha_name" 
-          bindValue="upasabha_code" 
-          placeholder="Select Upasabha" 
-          [(ngModel)]="selectedUpasabhaCode" 
-          (change)="onUpasabhaChange()"
-          [clearable]="true">
-        </ng-select>
+    </div>
+
+    <!-- General News -->
+    <div class="news-section" *ngIf="usualNews.length > 0">
+      <h3 class="section-title">General News</h3>
+      <div class="news-list">
+        <div class="news-item" *ngFor="let news of usualNews">
+          <h4>{{ news.news || news.headline || 'News Title' }}</h4>
+        </div>
+      </div>
+    </div>
+
+    <!-- District News -->
+    <div class="news-section" *ngIf="selectedDistrictCode && jillaNews.length > 0">
+      <h3 class="section-title">District News</h3>
+      <div class="news-list">
+        <div class="news-item" *ngFor="let news of jillaNews">
+          <h4>{{ news.news || news.headline || 'News Title' }}</h4>
+        </div>
       </div>
     </div>
   </div>
-  
-  <!-- Upasabha Files Display Section -->
-  <div class="content-section" *ngIf="upasabhaFiles.length > 0">
-    <div class="files-header">
-      <h3>Upasabha Files</h3>
-    </div>
-    
-    <div class="files-grid">
-      <div class="file-card" *ngFor="let file of upasabhaFiles">
+
+  <!-- Files Section -->
+  <div class="files-section" *ngIf="upasabhaFiles.length > 0">
+    <h3 class="section-title">Upasabha Files</h3>
+    <div class="files-table">
+      <div class="file-row" *ngFor="let file of upasabhaFiles">
         <div class="file-info">
-          <h4>{{ file.file_url || file.name || 'Unnamed File' }}</h4>
-          <p *ngIf="file.description">{{ file.description }}</p>
-          <div class="file-meta">
-            <span *ngIf="file.file_type" class="file-type">{{ file.file_type }}</span>
-            <span *ngIf="file.file_size" class="file-size">{{ file.file_size }}</span>
-            <span *ngIf="file.created_date" class="file-date">{{ file.created_date | date:'short' }}</span>
+          <div class="file-name">{{ file.file_url || file.name || 'Unnamed File' }}</div>
+          <div class="file-meta" *ngIf="file.file_type || file.file_size || file.created_date">
+            <span *ngIf="file.file_type" class="meta-tag">{{ file.file_type }}</span>
+            <span *ngIf="file.file_size" class="meta-tag">{{ file.file_size }}</span>
+            <span *ngIf="file.created_date" class="meta-tag">{{ file.created_date | date:'short' }}</span>
           </div>
         </div>
         <div class="file-actions">
-          <button 
-            *ngIf="file.download_url || file.file_url" 
-            class="btn btn-primary btn-sm"
-            (click)="downloadFile(file)">
+          <button *ngIf="file.download_url || file.file_url" class="btn btn-sm" (click)="downloadFile(file)">
             Download
           </button>
-          <button 
-            *ngIf="file.view_url" 
-            class="btn btn-secondary btn-sm"
-            (click)="viewFile(file)">
+          <button *ngIf="file.view_url" class="btn btn-sm btn-outline" (click)="viewFile(file)">
             View
           </button>
         </div>
@@ -72,12 +86,16 @@ The Sabha's primary objectives were to eradicate illiteracy and promote modern e
     </div>
   </div>
   
-  <!-- No Data Messages -->
-  <div class="no-data-message" *ngIf="selectedDistrictCode && upasabhas.length === 0">
-    <p>No upasabhas found for the selected district.</p>
+  <!-- Empty States -->
+  <div class="empty-state" *ngIf="selectedDistrictCode && upasabhas.length === 0">
+    No upasabhas found for the selected district.
   </div>
   
-  <div class="no-data-message" *ngIf="selectedUpasabhaCode && upasabhaFiles.length === 0">
-    <p>No files found for the selected upasabha.</p>
+  <div class="empty-state" *ngIf="selectedUpasabhaCode && upasabhaFiles.length === 0">
+    No files found for the selected upasabha.
+  </div>
+
+  <div class="empty-state" *ngIf="selectedDistrictCode && jillaNews.length === 0">
+    No district news found for the selected district.
   </div>
 </div>

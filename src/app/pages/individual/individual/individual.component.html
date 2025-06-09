@@ -1,1 +1,235 @@
-<p>individual works!</p>
+<!-- individual.component.html -->
+<div class="page-container">
+  <div class="page-header">
+    <div class="header-content">
+      <div class="title-section">
+        <h1>Member Profile</h1>
+        <span class="breadcrumb">Dashboard / Members / Profile</span>
+      </div>
+      <button class="btn-action" (click)="onAddFamily()" [disabled]="!memberDetails">
+        + Add Family Member
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="loading-state">
+    <div class="spinner"></div>
+    <span>Loading member data...</span>
+  </div>
+
+  <div *ngIf="error" class="error-state">
+    <span class="error-icon">⚠</span>
+    <span>{{ error }}</span>
+  </div>
+
+  <div *ngIf="memberDetails && !loading" class="profile-container">
+    <!-- Profile Header -->
+    <div class="profile-header">
+      <div class="profile-avatar">
+        <span>{{ memberDetails.name.charAt(0) }}</span>
+      </div>
+      <div class="profile-info">
+        <h2>{{ memberDetails.name }}</h2>
+        <div class="profile-meta">
+          <span class="meta-item">ID: {{ memberDetails.member_id }}</span>
+          <span class="meta-item">{{ memberDetails.job }}</span>
+          <span class="status-badge" [class]="memberDetails.live === 'TRUE' ? 'active' : 'inactive'">
+            {{ memberDetails.live === 'TRUE' ? 'Active' : 'Inactive' }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Data Grid -->
+    <div class="data-grid">
+      <div class="data-section">
+        <div class="section-header">Personal Information</div>
+        <div class="data-rows">
+          <div class="data-row">
+            <span class="label">Age</span>
+            <span class="value">{{ memberDetails.age }} years</span>
+          </div>
+          <div class="data-row">
+            <span class="label">Date of Birth</span>
+            <span class="value">{{ memberDetails.dob }}</span>
+          </div>
+          <div class="data-row">
+            <span class="label">Gender</span>
+            <span class="value">{{ memberDetails.sex === 'TRUE' ? 'Male' : 'Female' }}</span>
+          </div>
+          <div class="data-row">
+            <span class="label">Blood Group</span>
+            <span class="value">{{ getBloodGroupName(memberDetails.blood_group) }}</span>
+          </div>
+          <div class="data-row">
+            <span class="label">Member Type</span>
+            <span class="value">{{ getMemberTypeName(memberDetails.member_type) }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="data-section">
+        <div class="section-header">Address</div>
+        <div class="data-rows">
+          <div class="data-row">
+            <span class="label">House</span>
+            <span class="value">{{ memberDetails.house }}</span>
+          </div>
+          <div class="data-row">
+            <span class="label">Street</span>
+            <span class="value">{{ memberDetails.addr_1 }}, {{ memberDetails.addr_2 }}</span>
+          </div>
+          <div class="data-row">
+            <span class="label">District</span>
+            <span class="value">{{ memberDetails.district }}</span>
+          </div>
+          <div class="data-row">
+            <span class="label">PIN Code</span>
+            <span class="value">{{ memberDetails.pincode }}</span>
+          </div>
+          <div class="data-row">
+            <span class="label">Codes</span>
+            <span class="value">DC: {{ memberDetails.district_code }} | UC: {{ memberDetails.upasabha_code }}</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="data-section">
+        <div class="section-header">Contact Details</div>
+        <div class="data-rows">
+          <div class="data-row">
+            <span class="label">Mobile</span>
+            <span class="value">{{ memberDetails.mobile_number }}</span>
+          </div>
+          <div class="data-row">
+            <span class="label">Phone</span>
+            <span class="value">{{ memberDetails.phone !== '.' ? memberDetails.phone : '—' }}</span>
+          </div>
+          <div class="data-row">
+            <span class="label">WhatsApp</span>
+            <span class="value">{{ memberDetails.whatsapp_number || '—' }}</span>
+          </div>
+          <div class="data-row">
+            <span class="label">Email</span>
+            <span class="value">{{ memberDetails.email !== '.' ? memberDetails.email : '—' }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="data-section">
+        <div class="section-header">Status & Permissions</div>
+        <div class="data-rows">
+          <div class="data-row">
+            <span class="label">Renewal</span>
+            <span class="indicator" [class]="memberDetails.renewal === 'TRUE' ? 'success' : 'warning'"></span>
+            <span class="value">{{ memberDetails.renewal === 'TRUE' ? 'Current' : 'Due' }}</span>
+          </div>
+          <div class="data-row">
+            <span class="label">Account</span>
+            <span class="indicator" [class]="memberDetails.locked === 'TRUE' ? 'error' : 'success'"></span>
+            <span class="value">{{ memberDetails.locked === 'TRUE' ? 'Locked' : 'Active' }}</span>
+          </div>
+          <div class="data-row">
+            <span class="label">US APD</span>
+            <span class="indicator" [class]="memberDetails.us_apd === 'TRUE' ? 'success' : 'neutral'"></span>
+            <span class="value">{{ memberDetails.us_apd === 'TRUE' ? 'Approved' : 'Pending' }}</span>
+          </div>
+          <div class="data-row">
+            <span class="label">State APD</span>
+            <span class="indicator" [class]="memberDetails.state_apd === 'TRUE' ? 'success' : 'neutral'"></span>
+            <span class="value">{{ memberDetails.state_apd === 'TRUE' ? 'Approved' : 'Pending' }}</span>
+          </div>
+          <div class="data-row">
+            <span class="label">Jilla APD</span>
+            <span class="indicator" [class]="memberDetails.jilla_apd === 'TRUE' ? 'success' : 'neutral'"></span>
+            <span class="value">{{ memberDetails.jilla_apd === 'TRUE' ? 'Approved' : 'Pending' }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Family Modal -->
+<div *ngIf="isModalOpen" class="modal-overlay" (click)="closeModal()">
+  <div class="modal-container" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>Add Family Member</h3>
+      <button class="close-btn" (click)="closeModal()">&times;</button>
+    </div>
+    
+    <div class="modal-body">
+      <form (ngSubmit)="onSubmitFamily()" #familyForm="ngForm">
+        <!-- Display Current Member (Read-only) -->
+        <div class="form-group">
+          <label>Current Member</label>
+          <div class="current-member-display">
+            <span class="member-info">{{ memberDetails?.name }} (ID: {{ memberDetails?.member_id }})</span>
+          </div>
+        </div>
+
+        <!-- Family Member Selection using ng-select -->
+        <div class="form-group">
+          <label for="familyMemberId">Select Family Member *</label>
+          <ng-select 
+            [(ngModel)]="selectedFamilyMember"
+            name="familyMemberId"
+            [items]="filteredMembers"
+            bindLabel="displayName"
+            bindValue="member_id"
+            placeholder="Search and select family member..."
+            [searchable]="true"
+            [clearable]="true"
+            required>
+            
+            <ng-option-highlight [term]="searchTerm"></ng-option-highlight>
+            
+            <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+              <div class="member-option">
+                <span class="member-name">{{ item.name }}</span>
+                <small class="member-id">ID: {{ item.member_id }}</small>
+              </div>
+            </ng-template>
+            
+            <ng-template ng-notfound-tmp>
+              <div class="no-members-found">
+                No members found
+              </div>
+            </ng-template>
+          </ng-select>
+        </div>
+
+        <!-- Relationship as Text Field -->
+        <div class="form-group">
+          <label for="relation">Relationship *</label>
+          <input 
+            type="text"
+            id="relation"
+            [(ngModel)]="familyRelation"
+            name="relation"
+            class="form-control"
+            placeholder="Enter relationship (e.g., Father, Mother, Spouse, Son, Daughter, etc.)"
+            required>
+                    
+        </div>
+
+        <div *ngIf="modalError" class="error-message">
+          {{ modalError }}
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn-secondary" (click)="closeModal()">
+            Cancel
+          </button>
+          <button 
+            type="submit" 
+            class="btn-primary"
+            [disabled]="modalLoading || !selectedFamilyMember || !familyRelation.trim()">
+            <span *ngIf="modalLoading">Adding...</span>
+            <span *ngIf="!modalLoading">Add Family Member</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

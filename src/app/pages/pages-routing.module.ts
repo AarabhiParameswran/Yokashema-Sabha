@@ -13,6 +13,10 @@ const routes: Routes = [
     path: 'about', 
     loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
   },
+  {
+    path: 'user-mgmt', 
+    loadChildren: () => import('./individual/individual.module').then(m => m.IndividualModule)
+  },
 ];
 
 @NgModule({

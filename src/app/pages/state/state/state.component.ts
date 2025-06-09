@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { StateService } from 'src/app/core/services/state.service';
+import { NewsService } from 'src/app/core/services/news.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -21,13 +22,23 @@ export class StateComponent implements OnInit {
   upasabhas: any[] = [];
   upasabhaFiles: any[] = [];
   
+  // News arrays
+  stateNews: any[] = [];
+  usualNews: any[] = [];
+  jillaNews: any[] = [];
+  
   selectedDistrictCode: any = null;
   selectedUpasabhaCode: any = null;
   
-  constructor(private stateService: StateService) {}
+  constructor(
+    private stateService: StateService,
+    private newsService: NewsService
+  ) {}
   
   ngOnInit(): void {
     this.getDistrictList();
+    this.getStateNews();
+    this.getUsualNews();
   }
 
   getDistrictList() {
@@ -46,6 +57,45 @@ export class StateComponent implements OnInit {
       },
     });
   }
+
+  getStateNews() {
+    this.newsService.getStateOrUsualNews('state').subscribe({
+      next: (response: any) => {
+        console.log('State News:', response);
+        this.stateNews = response;
+      },
+      error: (error) => {
+        console.error("Error Fetching State News:", error);
+        this.showError("Failed to fetch state news", error);
+      },
+    });
+  }
+
+  getUsualNews() {
+    this.newsService.getStateOrUsualNews('usual').subscribe({
+      next: (response: any) => {
+        console.log('Usual News:', response);
+        this.usualNews = response;
+      },
+      error: (error) => {
+        console.error("Error Fetching Usual News:", error);
+        this.showError("Failed to fetch usual news", error);
+      },
+    });
+  }
+
+  getJillaNews(districtCode: number) {
+    this.newsService.getJillaNews('jilla', districtCode).subscribe({
+      next: (response: any) => {
+        console.log('Jilla News:', response);
+        this.jillaNews = response;
+      },
+      error: (error) => {
+        console.error("Error Fetching Jilla News:", error);
+        this.showError("Failed to fetch jilla news", error);
+      },
+    });
+  }
   
   onDistrictChange() {
     console.log('Selected district code:', this.selectedDistrictCode);
@@ -53,10 +103,12 @@ export class StateComponent implements OnInit {
     // Reset dependent dropdowns
     this.upasabhas = [];
     this.upasabhaFiles = [];
+    this.jillaNews = [];
     this.selectedUpasabhaCode = null;
     
     if (this.selectedDistrictCode) {
       this.getUpasabhaList(this.selectedDistrictCode);
+      this.getJillaNews(this.selectedDistrictCode);
     }
   }
   
